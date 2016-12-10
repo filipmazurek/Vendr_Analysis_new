@@ -1,0 +1,81 @@
+
+# Merchants
+
+- &filip !!models.Merchant
+    name:          filip
+    password:      secret
+
+- &salman !!models.Merchant
+    name:          salman
+    password:      test
+
+
+# Items
+
+- &shirt !!models.Item
+    name:          shirt
+    category:      clothing
+    priceInCents:  1000
+    merchant:      *filip
+
+- &shoes !!models.Item
+    name:          shoes
+    category:      clothing
+    priceInCents:  10000
+    merchant:      *filip
+
+- &speaker !!models.Item
+    name:          speaker
+    category:      electronics
+    priceInCents:  2500
+    merchant:      *salman
+
+- &vase !!models.Item
+    name:          vase
+    category:      decorations
+    priceInCents:  500
+    merchant:      *salman
+
+
+# Shoppers
+
+- &lihong !!models.Shopper
+    username:      lihong1
+    firstName:     lihong
+    lastName:      tang
+    gender:        M
+    age:           21
+    numLikes:      100
+    numDislikes:   400
+
+- &robert !!models.Shopper
+    username:      robert1
+    firstName:     robert
+    lastName:      duvall
+    gender:        M
+    age:           25
+    numLikes:      700
+    numDislikes:   300
+
+
+# ShopperLikeItems
+
+- !!models.ShopperLikeItem
+    item:          *shirt
+    shopper:       *lihong
+    didLike:       true
+
+- !!models.ShopperLikeItem
+    item:          *shoes
+    shopper:       *lihong
+    didLike:       true
+
+- !!models.ShopperLikeItem
+    item:          *speaker
+    shopper:       *robert
+    didLike:       true
+
+- !!models.ShopperLikeItem
+    item:          *vase
+    shopper:       *robert
+    didLike:       false
