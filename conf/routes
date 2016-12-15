@@ -11,3 +11,4 @@ GET     /customAnalytics            controllers.Application.customAnalytics()
 
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 GET     /public/*file               controllers.Assets.at(path="/public", file)
+#GET     /doc/*file                  controllers.Assets.at(path="/doc", file)
