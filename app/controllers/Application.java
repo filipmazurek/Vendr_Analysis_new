@@ -33,14 +33,33 @@ public class Application extends Controller {
     public static Result customAnalytics() {
         QueryDB query = new QueryDB();
         int likes = query.getNumLikesMerchant(request().username());
-        System.out.println("likes " + likes);
+//        System.out.println("likes " + likes);
 
         likes=query.getNumLikesMerchantCategory(request().username(),"clothing");
-        System.out.println("clothing likes " + likes);
+//        System.out.println("clothing likes " + likes);
 
         return ok(customAnalytics.render(
                 Merchant.find.byId(request().username())
         ));
+    }
+
+
+    public static Result getLikesByCategory() {
+        Form<Category> categoryForm = Form.form(Category.class).bindFromRequest();
+
+        String category = categoryForm.get().category;
+
+
+        System.out.println("it works with the following category = " + category);
+
+        QueryDB query = new QueryDB();
+        int likes=query.getNumLikesMerchantCategory(request().username(),category);
+
+        flash("categoryLikes", Integer.toString(likes));
+
+        System.out.println("and the likes it got = " + Integer.toString(likes));
+
+        return redirect(routes.Application.customAnalytics());
     }
 
 
@@ -81,5 +100,9 @@ public class Application extends Controller {
             }
             return null;
         }
+    }
+
+    public static class Category {
+        public String category;
     }
 }

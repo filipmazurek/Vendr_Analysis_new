@@ -8,6 +8,7 @@ POST    /login                      controllers.Application.authenticate()
 GET     /logout                     controllers.Application.logout()
 GET     /weeklyAnalytics            controllers.Application.weeklyAnalytics()
 GET     /customAnalytics            controllers.Application.customAnalytics()
+POST    /customAnalytics            controllers.Application.getLikesByCategory()
 
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 GET     /public/*file               controllers.Assets.at(path="/public", file)
