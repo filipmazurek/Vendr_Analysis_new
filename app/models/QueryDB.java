@@ -63,14 +63,6 @@ public class QueryDB{
    }
 
    public static int getNumDisLikesCategory(String category){
-      SqlQuery likes = Ebean.createSqlQuery("SELECT * FROM shopper_like_item,item WHERE shopper_like_item.did_like = true AND item.category = :category AND shopper_like_item.item_item_id=item.item_id");
-      likes.setParameter("category", category);
-
-      return likes.findList().size();
-
-   }
-
-   public static int getNumDisLikesCategory(String category){
    		SqlQuery likes = Ebean.createSqlQuery("SELECT * FROM shopper_like_item,item WHERE shopper_like_item.did_like = false AND item.category = :category AND shopper_like_item.item_item_id=item.item_id");
       likes.setParameter("category", category);
 
