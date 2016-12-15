@@ -1,4 +1,4 @@
-package models;
+package queries;
 
 import javax.persistence.*;
 import play.db.ebean.*;

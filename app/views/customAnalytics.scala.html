@@ -6,12 +6,12 @@
     I would like to see the number of likes in the following category:
 
     @helper.form(routes.Application.getLikesByCategory) {
-        <select name="categoryList">
-            <option value="@form.(category).value" name="category">Clothing</option>
-            <option value="electronics" name="category">Electronics</option>
-            <option value="decorations" name="category">Decorations</option>
-        </select>
-        <input type="submit"/>
+        <div class="center">
+            <input class="login-field" type="category" name="category" placeholder="Category">
+        </div>
+        <div class="center">
+            <button id="button" type="submit">Find it!</button>
+        </div>
     }
 
     @if(flash.contains("categoryLikes")) {

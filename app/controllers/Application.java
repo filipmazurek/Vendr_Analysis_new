@@ -9,7 +9,7 @@ import views.html.customAnalytics;
 import views.html.index;
 import views.html.login;
 import views.html.weeklyAnalytics;
-import models.QueryDB;
+import queries.QueryDB;
 
 public class Application extends Controller {
 
@@ -32,29 +32,23 @@ public class Application extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result customAnalytics() {
 
-        int likes = QueryDB.getNumLikesMerchant(request().username());
-//        System.out.println("likes " + likes);
-
-        likes=QueryDB.getNumLikesMerchantCategory(request().username(),"clothing");
-//        System.out.println("clothing likes " + likes);
-
         return ok(customAnalytics.render(
                 Merchant.find.byId(request().username()),
                 Form.form(Category.class)
         ));
     }
 
-
+    @Security.Authenticated(Secured.class)
     public static Result getLikesByCategory() {
+
         Form<Category> categoryForm = Form.form(Category.class).bindFromRequest();
 
-        String category = categoryForm.get().category;
+        String category = categoryForm.get().category.trim();
 
 
-        System.out.println("it works with the following category = " + category);
+        System.out.println("it works with the following category = \"" + category + "\"");
 
-        QueryDB query = new QueryDB();
-        int likes=query.getNumLikesMerchantCategory(request().username(),category);
+        int likes = QueryDB.getNumLikesMerchantCategory(request().username(),category);
 
         flash("categoryLikes", Integer.toString(likes));
 
