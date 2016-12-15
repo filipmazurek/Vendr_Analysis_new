@@ -1,4 +1,4 @@
-@(user: Merchant)
+@(user: Merchant)(form: Form[Application.Category])
 
 @main("Custom Analytics", user) {
 
@@ -7,9 +7,9 @@
 
     @helper.form(routes.Application.getLikesByCategory) {
         <select name="categoryList">
-            <option value="clothing">Clothing</option>
-            <option value="electronics">Electronics</option>
-            <option value="decorations">Decorations</option>
+            <option value="@form.(category).value" name="category">Clothing</option>
+            <option value="electronics" name="category">Electronics</option>
+            <option value="decorations" name="category">Decorations</option>
         </select>
         <input type="submit"/>
     }
