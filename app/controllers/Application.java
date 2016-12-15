@@ -32,8 +32,8 @@ public class Application extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result customAnalytics() {
         QueryDB query = new QueryDB();
-        int likes = query.getNumLikesMerchant(Merchant.find.byId(request().username()));
-        System.out.println("likes " + likes)
+        int likes = query.getNumLikesMerchant(request().username());
+        System.out.println("likes " + likes);
         return ok(customAnalytics.render(
                 Merchant.find.byId(request().username())
         ));
