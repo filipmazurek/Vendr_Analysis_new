@@ -14,28 +14,28 @@ public class QueryDB{
 	
  public static List<SqlRow> getAllItemsNames() throws SQLException {
 		SqlQuery items = Ebean.createSqlQuery(
-                    "SELECT Item.name FROM Item ORDER BY name");
+                    "SELECT item.name FROM item ORDER BY item.name");
 		return items.findList();
    }
    public static List<SqlRow> getAllMerchantNames() throws SQLException {
 		SqlQuery merchants = Ebean.createSqlQuery(
-                    "SELECT Merchant.name FROM Merchant ORDER BY name");
+                    "SELECT merchant.name FROM merchant ORDER BY merchant.name");
 		return merchants.findList();
    }
    public static List<SqlRow> getAllUserNames() throws SQLException {
 		SqlQuery users = Ebean.createSqlQuery(
-                    "SELECT Shopper.username FROM Shopper ORDER BY username");
+                    "SELECT shopper.username FROM shopper ORDER BY shopper.username");
 		return users.findList();
    }
    public static List<SqlRow> getAllItemsUnderPrice(int price) throws SQLException {
 		SqlQuery items = Ebean.createSqlQuery(
-                    "SELECT Item.name FROM Item WHERE Item.price <= " + price + " ORDER BY name");
+                    "SELECT item.name FROM item WHERE item.price <= " + price + " ORDER BY item.name");
 		return items.findList();
    }
 
    public static List<SqlRow> getAllItemsUnderPriceSameCategory(int price, String category) throws SQLException {
 		SqlQuery items = Ebean.createSqlQuery(
-                    "SELECT Item.name FROM Item WHERE Item.priceInCents <= " + price + " AND Item.category = " + category + " ORDER BY name");
+                    "SELECT item.name FROM item WHERE item.priceInCents <= " + price + " AND item.category = " + category + " ORDER BY item.name");
 		return items.findList();
    }
 
@@ -97,7 +97,7 @@ public static int getNumLikesShopper(String username){
 
    public static int getNumLikesMerchant(String name){
    		SqlQuery likes =  Ebean.createSqlQuery(
-                    "SELECT * FROM shopper_like_item WHERE shopper_like_item.did_like = true AND shopper_like_item.item.merchant.name = " + name +" ORDER BY shopper_like_item.item.itemId");
+                    "SELECT * FROM shopper_like_item,merchants,item WHERE shopper_like_item.did_like = true AND merchant.name = " + getAllUserNames + "AND shopper_like_item.item_item_id=item.item_id AND merchant.name=item.merchantname");
    		return likes.findList().size();
    }
 
