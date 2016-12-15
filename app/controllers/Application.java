@@ -9,6 +9,7 @@ import views.html.customAnalytics;
 import views.html.index;
 import views.html.login;
 import views.html.weeklyAnalytics;
+import models.QueryDB;
 
 public class Application extends Controller {
 
@@ -30,6 +31,9 @@ public class Application extends Controller {
 
     @Security.Authenticated(Secured.class)
     public static Result customAnalytics() {
+        QueryDB query = new QueryDB();
+        int likes = query.getNumLikesMerchant(Merchant.find.byId(request().username()));
+        System.out.println("likes " + likes)
         return ok(customAnalytics.render(
                 Merchant.find.byId(request().username())
         ));
