@@ -97,11 +97,9 @@ public static int getNumLikesShopper(String username){
 
    public static int getNumLikesMerchant(String name){
 
-
-      SqlUpdate likes = Ebean.createSqlUpdate("SELECT * FROM shopper_like_item,merchants,item WHERE shopper_like_item.did_like = true AND merchant.name = :merchantName AND shopper_like_item.item_item_id=item.item_id AND merchant.name=item.merchantname");
+      SqlQuery likes = Ebean.createSqlQuery("SELECT * FROM shopper_like_item,merchant,item WHERE shopper_like_item.did_like = true AND merchant.name = :merchantName AND shopper_like_item.item_item_id=item.item_id AND merchant.name=item.merchant_name");
       likes.setParameter("merchantName", name);
-      
-      return likes.execute();
+	   return likes.findList().size();
    }
 
 
