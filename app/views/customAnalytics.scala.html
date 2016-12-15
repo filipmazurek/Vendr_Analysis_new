@@ -5,14 +5,14 @@
 
     I would like to see the number of likes in the following category:
 
-    <form action="@routes.Application.getLikesByCategory()" method="POST">
-        <select name="categoryList" >
-            <option value="clothing">Clothing </option>
+    @helper.form(routes.Application.getLikesByCategory) {
+        <select name="categoryList">
+            <option value="clothing">Clothing</option>
             <option value="electronics">Electronics</option>
             <option value="decorations">Decorations</option>
         </select>
         <input type="submit"/>
-    </form>
+    }
 
     @if(flash.contains("categoryLikes")) {
         <p class="success">
