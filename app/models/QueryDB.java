@@ -97,7 +97,7 @@ public static int getNumLikesShopper(String username){
 
    public static int getNumLikesMerchant(String name){
    		SqlQuery likes =  Ebean.createSqlQuery(
-                    "SELECT * FROM shopper_like_item,merchants,item WHERE shopper_like_item.did_like = true AND merchant.name = " + getAllUserNames + "AND shopper_like_item.item_item_id=item.item_id AND merchant.name=item.merchantname");
+                    "SELECT * FROM shopper_like_item,merchants,item WHERE shopper_like_item.did_like = true AND merchant.name = " + name + "AND shopper_like_item.item_item_id=item.item_id AND merchant.name=item.merchantname");
    		return likes.findList().size();
    }
 
