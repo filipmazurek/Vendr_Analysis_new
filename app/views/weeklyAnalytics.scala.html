@@ -2,10 +2,10 @@
 
 @main("Weekly Analytics", user) {
     <p class="pBlock">Download a PDF copy here:
-        <a href="doc/weekly_analytics_template.pdf" target="_blank">Weekly Analytics</a>
+        <a  href="@routes.Assets.at("weekly_analytics_template.pdf")" > Weekly Analytics </a>
     </p>
 
-    <embed src="http://filipmazurek.com/documents/Mazurek_Resume.pdf" width="800px" height="2100px" />
+    <embed src="@routes.Assets.at("weekly_analytics_template.pdf")" width="75%"/>
 
 
 }
