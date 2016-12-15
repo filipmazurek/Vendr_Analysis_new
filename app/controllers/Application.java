@@ -34,6 +34,10 @@ public class Application extends Controller {
         QueryDB query = new QueryDB();
         int likes = query.getNumLikesMerchant(request().username());
         System.out.println("likes " + likes);
+
+        likes=query.getNumLikesMerchantCategory(request().username(),"clothing")
+       System.out.println("clothing likes " + likes);
+
         return ok(customAnalytics.render(
                 Merchant.find.byId(request().username())
         ));

@@ -46,67 +46,79 @@ public class QueryDB{
    }
 
    public static int getNumLikesItem(long itemID){
-   		SqlQuery likes = Ebean.createSqlQuery(
-                    "SELECT * FROM shopper_like_item WHERE shopper_like_item.did_like = true AND shopper_like_item.item.itemId = " + itemID + " ORDER BY shopper_like_item.item.itemId");
-   		return likes.findList().size();
+      SqlQuery likes = Ebean.createSqlQuery("SELECT * FROM shopper_like_item,item WHERE shopper_like_item.did_like = false AND item.item_id = :itemID AND shopper_like_item.item_item_id=item.item_id");
+      likes.setParameter("itemID", Long.toString(itemID));
+
+      return likes.findList().size();
 
    }
 
 
    public static int getNumDisLikesItem(long itemID){
-   		SqlQuery likes = Ebean.createSqlQuery(
-                    "SELECT * FROM shopper_like_item WHERE shopper_like_item.did_like = false AND shopper_like_item.item.itemId = " + itemID + " ORDER BY shopper_like_item.item.itemId");
-   		return likes.findList().size();
+      SqlQuery likes = Ebean.createSqlQuery("SELECT * FROM shopper_like_item,item WHERE shopper_like_item.did_like = false AND item.item_id = :itemID AND shopper_like_item.item_item_id=item.item_id");
+      likes.setParameter("itemID", Long.toString(itemID));
+
+      return likes.findList().size();
 
    }
-
-      public static int getNumLikesCategory(String category){
-   		SqlQuery likes = Ebean.createSqlQuery(
-                    "SELECT * FROM shopper_like_item WHERE shopper_like_item.did_like = true AND shopper_like_item.item.category = " + category + " ORDER BY shopper_like_item.item.itemId");
-   		return likes.findList().size();
-
-   }
-
 
    public static int getNumDisLikesCategory(String category){
-   		SqlQuery likes = Ebean.createSqlQuery(
-                    "SELECT * FROM shopper_like_item WHERE shopper_like_item.did_like = false AND shopper_like_item.item.category = " + category + " ORDER BY shopper_like_item.item.itemId");
-   		return likes.findList().size();
+      SqlQuery likes = Ebean.createSqlQuery("SELECT * FROM shopper_like_item,item WHERE shopper_like_item.did_like = true AND item.category = :category AND shopper_like_item.item_item_id=item.item_id");
+      likes.setParameter("category", category);
+
+      return likes.findList().size();
+
+   }
+
+   public static int getNumDisLikesCategory(String category){
+   		SqlQuery likes = Ebean.createSqlQuery("SELECT * FROM shopper_like_item,item WHERE shopper_like_item.did_like = false AND item.category = :category AND shopper_like_item.item_item_id=item.item_id");
+      likes.setParameter("category", category);
+
+      return likes.findList().size();
 
    }
 public static int getNumLikesShopper(String username){
-   		SqlQuery likes = Ebean.createSqlQuery(
-                    "SELECT * FROM shopper_like_item WHERE shopper_like_item.did_like = true AND shopper_like_item.shopper.username = " + username +" ORDER BY shopper_like_item.item.itemId");
-   		return likes.findList().size();
+      SqlQuery likes = Ebean.createSqlQuery("SELECT * FROM shopper_like_item,shopper WHERE shopper_like_item.did_like = true AND shopper.name = :username");
+      likes.setParameter("username", username);
+
+      return likes.findList().size();
+   		
 
    }
 
-
-   public static int getNumLikesMerchantItem(String name, long itemId){
-   		SqlQuery likes =  Ebean.createSqlQuery(
-                    "SELECT * FROM shopper_like_item WHERE shopper_like_item.did_like = true AND shopper_like_item.item.merchant.name = " + name +"AND shopper_like_item.item.itemId = " + Long.toString(itemId)  +" ORDER BY shopper_like_item.item.itemId");
-   		return likes.findList().size();
-   }
-
-
-      public static int getNumLikesMerchantItemCategory(String name, long itemId, String category) {
-   		SqlQuery likes =  Ebean.createSqlQuery(
-                    "SELECT * FROM shopper_like_item WHERE shopper_like_item.did_like = true AND shopper_like_item.item.merchant.name = " + name +"AND shopper_like_item.item.itemId = " + Long.toString(itemId) + "AND shopper_like_item.item.category = " + category+" ORDER BY shopper_like_item.item.itemId");
-   		return likes.findList().size();
-   }
-
-   public static int getNumLikesMerchant(String name){
+  public static int getNumLikesMerchant(String name){
 
       SqlQuery likes = Ebean.createSqlQuery("SELECT * FROM shopper_like_item,merchant,item WHERE shopper_like_item.did_like = true AND merchant.name = :merchantName AND shopper_like_item.item_item_id=item.item_id AND merchant.name=item.merchant_name");
       likes.setParameter("merchantName", name);
-	   return likes.findList().size();
+     return likes.findList().size();
+   }
+   public static int getNumLikesMerchantItem(String name, long itemId){
+   	  SqlQuery likes = Ebean.createSqlQuery("SELECT * FROM shopper_like_item,merchant,item WHERE shopper_like_item.did_like = true AND merchant.name = :merchantName AND item.item_id=:itemID AND shopper_like_item.item_item_id=item.item_id AND merchant.name=item.merchant_name");
+      likes.setParameter("merchantName", name);
+      likes.setParameter("itemID", Long.toString(itemId));
+      return likes.findList().size();
    }
 
+  public static int getNumLikesMerchantCategory(String name, String category){
+
+      SqlQuery likes = Ebean.createSqlQuery("SELECT * FROM shopper_like_item,merchant,item WHERE shopper_like_item.did_like = true AND merchant.name = :merchantName AND item.category=:category AND shopper_like_item.item_item_id=item.item_id AND merchant.name=item.merchant_name");
+      likes.setParameter("merchantName", name);
+      likes.setParameter("category", category);
+      return likes.findList().size();
+   }
+
+      public static int getNumLikesMerchantItemCategory(String name, long itemId, String category) {
+   		SqlQuery likes = Ebean.createSqlQuery("SELECT * FROM shopper_like_item,merchant,item WHERE shopper_like_item.did_like = true AND item.category=:category AND merchant.name = :merchantName AND item.item_id=:itemID AND shopper_like_item.item_item_id=item.item_id AND merchant.name=item.merchant_name");
+      likes.setParameter("merchantName", name);
+      likes.setParameter("itemID", Long.toString(itemId));
+      likes.setParameter("category", category);
+      return likes.findList().size();
+   }
 
    public static int getNumDisLikesMerchant(String name){
-   		SqlQuery likes =  Ebean.createSqlQuery(
-                    "SELECT * FROM shopper_like_item WHERE shopper_like_item.did_like = false AND shopper_like_item.item.merchant.name = " + name +" ORDER BY shopper_like_item.item.itemId");
-   		return likes.findList().size();
+      SqlQuery likes = Ebean.createSqlQuery("SELECT * FROM shopper_like_item,merchant,item WHERE shopper_like_item.did_like = false AND merchant.name = :merchantName AND shopper_like_item.item_item_id=item.item_id AND merchant.name=item.merchant_name");
+      likes.setParameter("merchantName", name);
+     return likes.findList().size();
    }
 	
 
